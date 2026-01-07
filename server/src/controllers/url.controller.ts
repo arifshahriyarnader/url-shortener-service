@@ -17,7 +17,15 @@ export const shortenUrlController = async (req: Request, res: Response) => {
     res.status(201).json({
       shortUrl,
     });
-  } catch (error) {
+  } catch (error: any) {
+    if (error.message === "URL limit reached for free account") {
+      return res
+        .status(403)
+        .json({
+          message:
+            "Free tier limit reached. Upgrade your plan to create more URLS.",
+        });
+    }
     console.error(error);
     res.status(500).json({ message: "Failed to shorten URL" });
   }
