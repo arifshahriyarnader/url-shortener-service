@@ -1,7 +1,8 @@
-CREATE TABLE urls (
-    id SERIAL PRIMARY KEY,
-    short_code VARCHAR(10) UNIQUE NOT NULL,
-    long_url TEXT NOT NULL,
-    user_id INT REFERENCES users(id),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE urlstable (
+  id SERIAL PRIMARY KEY,
+  original_url TEXT NOT NULL,
+  short_code VARCHAR(8) UNIQUE NOT NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  click_count INTEGER DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
