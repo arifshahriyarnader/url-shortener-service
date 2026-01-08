@@ -1,6 +1,7 @@
 import { dbConnection } from "../db";
 import { generateShortCode } from "../utils";
 import { MAX_FREE_URLS } from "../constants";
+import { parse } from "node:path";
 
 export const generateUniqueShortCode = async (): Promise<string> => {
   let code: string;
@@ -42,4 +43,31 @@ export const checkUserUrlLimit = async (userId: number) => {
   if (count >= MAX_FREE_URLS) {
     throw new Error("URL limit reached for free account");
   }
+};
+
+export const getUserUrls = async (
+  userId: number,
+  limit: number,
+  offset: number
+) => {
+  const totalRes = await dbConnection.query(
+    "SELECT COUNT(*) FROM urlstable WHERE user_id=$1",
+    [userId]
+  );
+  const total = parseInt(totalRes.rows[0].count, 10);
+  const urlsRes = await dbConnection.query(
+    `SELECT id, original_url, short_code, user_id, click_count, created_at
+     FROM urlstable
+     WHERE user_id = $1
+     ORDER BY created_at DESC
+     LIMIT $2 OFFSET $3`,
+    [userId, limit, offset]
+  );
+  return {
+    urls: urlsRes.rows,
+    total,
+    page: Math.floor(offset / limit) + 1,
+    limit,
+    totalPages: Math.ceil(total / limit),
+  };
 };

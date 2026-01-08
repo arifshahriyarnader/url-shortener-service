@@ -1,5 +1,4 @@
 import { Request, Response } from "express";
-
 import { urlServices } from "../services";
 
 export const shortenUrlController = async (req: Request, res: Response) => {
@@ -19,14 +18,29 @@ export const shortenUrlController = async (req: Request, res: Response) => {
     });
   } catch (error: any) {
     if (error.message === "URL limit reached for free account") {
-      return res
-        .status(403)
-        .json({
-          message:
-            "Free tier limit reached. Upgrade your plan to create more URLS.",
-        });
+      return res.status(403).json({
+        message:
+          "Free tier limit reached. Upgrade your plan to create more URLS.",
+      });
     }
     console.error(error);
     res.status(500).json({ message: "Failed to shorten URL" });
+  }
+};
+
+export const getUserUrlsController = async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const page = parseInt(req.query.page as string) || 1;
+    const offset = (page - 1) * limit;
+    if (!userId) {
+      return res.status(401).json({ message: "Unauthorized" });
+    }
+    const result = await urlServices.getUserUrls(userId, limit, offset);
+    res.json(result);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch URLs" });
   }
 };

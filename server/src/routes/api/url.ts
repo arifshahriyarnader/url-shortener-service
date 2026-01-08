@@ -10,4 +10,10 @@ router.post(
   shortenUrlController.shortenUrlController
 );
 
+router.get(
+  "/my-urls",
+  authenticateToken,
+  shortenUrlController.getUserUrlsController
+);
+
 export default router;
