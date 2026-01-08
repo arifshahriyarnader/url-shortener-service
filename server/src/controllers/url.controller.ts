@@ -65,3 +65,15 @@ export const deleteUserUrlController = async (req: Request, res: Response) => {
     res.status(500).json({ message: "Failed to delete URL" });
   }
 };
+
+export const getUserUrlUsageStatusController = async(req: Request, res: Response) => {
+  try{
+    const userId = req.user?.id;
+    const usage= await urlServices.getUserUrlUsageStatus(userId)
+    res.json(usage);
+  }
+  catch(error){
+    console.error(error);
+    res.status(500).json({ message: "Failed to fetch URL usage status" });
+  }
+}

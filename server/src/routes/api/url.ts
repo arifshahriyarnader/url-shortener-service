@@ -16,6 +16,16 @@ router.get(
   shortenUrlController.getUserUrlsController
 );
 
-router.delete("/my-urls/:id", authenticateToken, shortenUrlController.deleteUserUrlController);
+router.delete(
+  "/my-urls/:id",
+  authenticateToken,
+  shortenUrlController.deleteUserUrlController
+);
+
+router.get(
+  "/usage",
+  authenticateToken,
+  shortenUrlController.getUserUrlUsageStatusController
+);
 
 export default router;

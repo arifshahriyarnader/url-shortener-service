@@ -72,12 +72,24 @@ export const getUserUrls = async (
   };
 };
 
-
-export const deleteUserUrl = async(userId: number, urlId: number) => {
-  const urlRes = await dbConnection.query("SELECT * FROM urlstable WHERE id = $1 AND user_id = $2", [urlId, userId]);
-  if(urlRes.rows.length === 0) {
+export const deleteUserUrl = async (userId: number, urlId: number) => {
+  const urlRes = await dbConnection.query(
+    "SELECT * FROM urlstable WHERE id = $1 AND user_id = $2",
+    [urlId, userId]
+  );
+  if (urlRes.rows.length === 0) {
     throw new Error("URL not found or unauthorized");
   }
   await dbConnection.query("DELETE FROM urlstable WHERE id = $1", [urlId]);
   return { message: "URL deleted successfully" };
-}
+};
+
+export const getUserUrlUsageStatus = async (userId: number) => {
+  const result = await dbConnection.query(
+    "SELECT COUNT(*) FROM urlstable WHERE user_id = $1",
+    [userId]
+  );
+  const used = Number(result.rows[0].count);
+  const limit = 100;
+  return { used, remaining: Math.max(limit - used, 0), limit };
+};
