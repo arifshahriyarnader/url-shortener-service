@@ -71,3 +71,13 @@ export const getUserUrls = async (
     totalPages: Math.ceil(total / limit),
   };
 };
+
+
+export const deleteUserUrl = async(userId: number, urlId: number) => {
+  const urlRes = await dbConnection.query("SELECT * FROM urlstable WHERE id = $1 AND user_id = $2", [urlId, userId]);
+  if(urlRes.rows.length === 0) {
+    throw new Error("URL not found or unauthorized");
+  }
+  await dbConnection.query("DELETE FROM urlstable WHERE id = $1", [urlId]);
+  return { message: "URL deleted successfully" };
+}
