@@ -7,10 +7,24 @@ interface UrlUsageResponse {
   limit: number;
 }
 
+interface CreateShortUrlResponse {
+  shortUrl: string;
+}
+
 export const getUrlUsageService = async (): Promise<UrlUsageResponse> => {
   const response: AxiosResponse<UrlUsageResponse> = await https.get(
     "/api/url/usage"
   );
+
+  return response.data;
+};
+
+export const createShortUrlService = async (
+  url: string
+): Promise<CreateShortUrlResponse> => {
+  const response = await https.post("/api/url/shorten", {
+    url,
+  });
 
   return response.data;
 };

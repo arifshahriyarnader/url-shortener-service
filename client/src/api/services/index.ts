@@ -1,1 +1,1 @@
-export * from "./urlUsageService"
+export * from "./urlService"

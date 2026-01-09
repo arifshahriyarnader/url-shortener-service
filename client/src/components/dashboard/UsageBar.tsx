@@ -7,7 +7,7 @@ interface UrlUsageResponse {
   limit: number;
 }
 
-const UsageBar = () => {
+export const UsageBar = () => {
   const [usage, setUsage] = useState<UrlUsageResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -80,4 +80,4 @@ const UsageBar = () => {
   );
 };
 
-export default UsageBar;
+

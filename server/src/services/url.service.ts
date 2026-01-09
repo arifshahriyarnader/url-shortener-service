@@ -1,7 +1,7 @@
 import { dbConnection } from "../db";
 import { generateShortCode } from "../utils";
 import { MAX_FREE_URLS } from "../constants";
-import { parse } from "node:path";
+
 
 export const generateUniqueShortCode = async (): Promise<string> => {
   let code: string;
