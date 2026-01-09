@@ -12,7 +12,10 @@ const Header = () => {
         </Link>
 
         <div className="flex items-center gap-4">
-          <span className="text-sm text-gray-500">Dashboard</span>
+          <Link to="/dashboard">
+            <div className="text-sm text-gray-500">Dashboard</div>
+          </Link>
+        
 
           {/* <button
             disabled

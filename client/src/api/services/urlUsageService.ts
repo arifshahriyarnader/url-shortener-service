@@ -9,7 +9,7 @@ interface UrlUsageResponse {
 
 export const getUrlUsageService = async (): Promise<UrlUsageResponse> => {
   const response: AxiosResponse<UrlUsageResponse> = await https.get(
-    "/api/client/url-usage"
+    "/api/url/usage"
   );
 
   return response.data;

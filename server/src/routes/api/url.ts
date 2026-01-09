@@ -23,8 +23,7 @@ router.delete(
 );
 
 router.get(
-  "/usage",
-  authenticateToken,
+  "/usage", authenticateToken,
   shortenUrlController.getUserUrlUsageStatusController
 );
 
