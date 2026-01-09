@@ -69,6 +69,9 @@ export const deleteUserUrlController = async (req: Request, res: Response) => {
 export const getUserUrlUsageStatusController = async(req: Request, res: Response) => {
   try{
     const userId = req.user?.id;
+    if(!userId){
+      return res.status(401).json({ message: "Unauthorized" });
+    }
     const usage= await urlServices.getUserUrlUsageStatus(userId)
     res.json(usage);
   }

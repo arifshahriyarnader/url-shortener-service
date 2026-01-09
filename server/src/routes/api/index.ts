@@ -4,7 +4,6 @@ import loginRoutes from "./login";
 import urlRoutes from "./url";
 
 const router = Router();
-console.log("API ROUTER LOADED");
 
 router.use("/auth", signupRoutes);
 router.use("/auth", loginRoutes);
