@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { createShortUrlService } from "../../api/services";
 import { AxiosError } from "axios";
+import { useUrlContext } from "../../contexts";
 
 export const CreateShortUrl = () => {
   const [longUrl, setLongUrl] = useState("");
   const [shortUrl, setShortUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const { refreshUrls } = useUrlContext()!;
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -23,6 +25,7 @@ export const CreateShortUrl = () => {
 
       const data = await createShortUrlService(longUrl);
       setShortUrl(data.shortUrl);
+      refreshUrls();
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
         if (err.response?.status === 403) {

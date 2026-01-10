@@ -3,6 +3,7 @@ import { UrlRow } from "./UrlRow";
 import type { UserUrl } from "../../types";
 import { getUserUrlsService, deleteUserUrlService } from "../../api/services";
 import { appConfig } from "../../common/config";
+import { useUrlContext } from "../../contexts";
 
 const BASE_URL = appConfig.BASE_URL;
 
@@ -11,6 +12,7 @@ export const UrlTable = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
+  const {refreshKey} = useUrlContext()!;
 
   const fetchUrls = async () => {
     try {
@@ -25,7 +27,7 @@ export const UrlTable = () => {
 
   useEffect(() => {
     fetchUrls();
-  }, [page]);
+  }, [page, refreshKey]);
 
   const handleDelete = async (id: number) => {
     if (!confirm("Are you sure you want to delete this URL?")) return;
