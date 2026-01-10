@@ -1,6 +1,13 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { authService } from "../../auth";
 
 const Header = () => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    authService.logout()
+    localStorage.removeItem("authUser");
+    navigate("/login");
+  }
   return (
     <header className="w-full border-b bg-white">
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
@@ -17,19 +24,20 @@ const Header = () => {
           <Link to="/dashboard">
             <div className="text-sm text-gray-500">Dashboard</div>
           </Link>
-          <Link
+         
+ <Link
             to="/login"
             className="px-6 py-3 border border-gray-300 rounded-md hover:bg-gray-100"
           >
             Login
           </Link>
-
-          {/* <button
-            disabled
-            className="rounded-lg border px-3 py-1.5 text-sm text-gray-400 cursor-not-allowed"
+          <button
+          
+            onClick={handleLogout}
+            className="rounded-lg border px-3 py-1.5 text-sm text-gray-400 cursor-pointer"
           >
             Logout
-          </button> */}
+          </button>
         </div>
       </div>
     </header>
