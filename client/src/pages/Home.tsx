@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { authService } from "../auth";
 
 export const Home = () => {
   return (
@@ -12,19 +13,20 @@ export const Home = () => {
       </p>
 
       <div className="flex justify-center gap-4">
+        {!authService.isUserLoggedIn() &&(
         <Link
           to="/signup"
           className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700"
         >
           Get Started
         </Link>
-
-        <Link
+)}
+        {!authService.isUserLoggedIn() && (<Link
           to="/login"
           className="px-6 py-3 border border-gray-300 rounded-md hover:bg-gray-100"
         >
           Login
-        </Link>
+        </Link>)}
       </div>
     </div>
   );
