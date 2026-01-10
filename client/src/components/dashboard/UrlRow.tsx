@@ -13,6 +13,7 @@ export const UrlRow = ({ url, baseUrl, onDelete }: UrlRowProps) => {
   return (
     <tr className="border-b text-sm">
       <td className="p-3 max-w-xs truncate">{url.original_url}</td>
+      <td className="p-3">{url.short_code}</td>
 
       <td className="p-3">
         <a

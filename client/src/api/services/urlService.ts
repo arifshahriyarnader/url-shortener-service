@@ -44,8 +44,9 @@ export const getUserUrlsService = async (
   limit = 10
 ): Promise<UrlListResponse> => {
   const res: AxiosResponse<UrlListResponse> = await https.get(
-    `/api/url?page=${page}&limit=${limit}`
+    `/api/url/my-urls/?page=${page}&limit=${limit}`
   );
+  
   return res.data;
 };
 

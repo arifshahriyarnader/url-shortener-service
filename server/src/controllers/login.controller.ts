@@ -11,6 +11,7 @@ export const loginController = async (
     if (type === "email") {
       if (!email || !password) {
         res.status(400).json({ message: "Email and password required" });
+        return;
       }
       const user = await loginServices.handleEmailLogin(email!, password!);
       res.json(user);

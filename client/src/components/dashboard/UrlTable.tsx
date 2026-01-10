@@ -45,6 +45,7 @@ export const UrlTable = () => {
         <thead className="bg-gray-100 text-sm">
           <tr>
             <th className="p-3">Original URL</th>
+            <th className="p-3">Short Code</th>
             <th className="p-3">Short URL</th>
             <th className="p-3 text-center">Clicks</th>
             <th className="p-3">Created</th>

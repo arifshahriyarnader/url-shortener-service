@@ -1,13 +1,44 @@
 import { useState } from "react";
+import type { LoginData } from "../auth/authTypes";
+import { authService } from "../auth";
+import { useNavigate } from "react-router-dom";
 
+interface LoginFormData {
+  email: string;
+  password: string;
+}
 export const Login = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState<LoginFormData>({
+    email: "",
+    password: "",
+  });
+  const navigate = useNavigate();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log({ email, password });
-  
+    console.log("Login data:", formData);
+    const payload: LoginData = {
+      type: "email",
+      email: formData.email,
+      password: formData.password,
+    };
+    try {
+      const authUser = await authService.login(payload);
+      alert("Login successful!");
+
+      console.log("Logged in user:", authUser);
+      navigate("/dashboard");
+    } catch (error) {
+      console.error("Login error:", error);
+      alert("Login failed. Please try again.");
+    }
   };
 
   return (
@@ -20,18 +51,20 @@ export const Login = () => {
       >
         <input
           type="email"
+          name="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           className="w-full border px-3 py-2 rounded"
           required
         />
 
         <input
           type="password"
+          name="password"
           placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
           className="w-full border px-3 py-2 rounded"
           required
         />
@@ -46,5 +79,3 @@ export const Login = () => {
     </div>
   );
 };
-
-
