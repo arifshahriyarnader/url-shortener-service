@@ -8,14 +8,21 @@ const Header = () => {
           <div className="h-10 w-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold">
             🔗
           </div>
-          <span className="text-xl font-semibold text-gray-800">URL Shortener</span>
+          <span className="text-xl font-semibold text-gray-800">
+            URL Shortener
+          </span>
         </Link>
 
         <div className="flex items-center gap-4">
           <Link to="/dashboard">
             <div className="text-sm text-gray-500">Dashboard</div>
           </Link>
-        
+          <Link
+            to="/login"
+            className="px-6 py-3 border border-gray-300 rounded-md hover:bg-gray-100"
+          >
+            Login
+          </Link>
 
           {/* <button
             disabled
