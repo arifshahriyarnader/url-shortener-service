@@ -12,7 +12,7 @@ export const UrlTable = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
-  const {refreshKey} = useUrlContext()!;
+  const { refreshKey } = useUrlContext()!;
 
   const fetchUrls = async () => {
     try {

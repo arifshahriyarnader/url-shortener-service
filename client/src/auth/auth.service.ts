@@ -8,29 +8,29 @@ import type {
 } from "./authTypes";
 import { appConfig } from "../common/config";
 
-const saveAuthuser=(authUser:AuthResponse)=>{
-    localStorage.setItem(appConfig.CURRENT_USER_KEY, JSON.stringify(authUser));
-}
+const saveAuthuser = (authUser: AuthResponse) => {
+  localStorage.setItem(appConfig.CURRENT_USER_KEY, JSON.stringify(authUser));
+};
 
-const getAuthUser = (): AuthResponse | null => {
+export const getAuthUser = (): AuthResponse | null => {
   const storedUser = localStorage.getItem(appConfig.CURRENT_USER_KEY);
   if (!storedUser) return null;
   return JSON.parse(storedUser);
 };
 
 export const isUserLoggedIn = () => {
-    return !!getAuthUser();
-}
+  return !!getAuthUser();
+};
 
-export const getAccessToken=() => {
-    const authUser = getAuthUser();
-    return authUser?.accessToken || null;
-}
+export const getAccessToken = () => {
+  const authUser = getAuthUser();
+  return authUser?.accessToken || null;
+};
 
-export const getRefreshToken=() => {
-    const authUser = getAuthUser();
-    return authUser?.refreshToken || null;
-}
+export const getRefreshToken = () => {
+  const authUser = getAuthUser();
+  return authUser?.refreshToken || null;
+};
 
 export const signupService = async (
   data: SignupInput
@@ -49,11 +49,9 @@ export const login = async (data: LoginData): Promise<AuthResponse> => {
     data
   );
   saveAuthuser(response.data);
-    return response.data;
-  
+  return response.data;
 };
 
-
 export const logout = () => {
-    localStorage.removeItem(appConfig.CURRENT_USER_KEY);
-}
+  localStorage.removeItem(appConfig.CURRENT_USER_KEY);
+};

@@ -2,8 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { authService } from "../../auth";
 import { LogOut } from "lucide-react";
 
-const Header = () => {
+export const Header = () => {
   const navigate = useNavigate();
+  const authUser = authService.getAuthUser();
   const handleLogout = () => {
     authService.logout();
     localStorage.removeItem("authUser");
@@ -13,9 +14,6 @@ const Header = () => {
     <header className="w-full border-b bg-white">
       <div className="mx-auto max-w-7xl px-6 py-4 flex items-center justify-between">
         <Link to="/" className="flex items-center gap-2">
-          <div className="h-10 w-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white font-bold">
-            🔗
-          </div>
           <span className="text-xl font-semibold text-gray-800">
             URL Shortener
           </span>
@@ -25,6 +23,13 @@ const Header = () => {
           <Link to="/dashboard">
             <div className="text-sm text-gray-500">Dashboard</div>
           </Link>
+          <div>
+            {authUser?.name && (
+              <div className="text-sm text-gray-700 font-medium">
+                {authUser.name}
+              </div>
+            )}
+          </div>
 
           {authService.isUserLoggedIn() && (
             <button
@@ -40,4 +45,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+
