@@ -25,6 +25,7 @@ export const CreateShortUrl = () => {
 
       const data = await createShortUrlService(longUrl);
       setShortUrl(data.shortUrl);
+      setLongUrl("");
       refreshUrls();
     } catch (err: unknown) {
       if (err instanceof AxiosError) {
