@@ -54,7 +54,7 @@ export const CreateShortUrl = () => {
         <button
           type="submit"
           disabled={loading}
-          className="w-full bg-blue-600 text-white py-2 rounded-md text-sm hover:bg-blue-700 disabled:opacity-50"
+          className="w-full cursor-pointer bg-blue-600 text-white py-2 rounded-md text-sm hover:bg-blue-700 disabled:opacity-50"
         >
           {loading ? "Creating..." : "Shorten URL"}
         </button>

@@ -1,5 +1,6 @@
 import type { AxiosResponse } from "axios";
 import { https } from "../../common/https";
+import type { UserUrl } from "../../types";
 
 interface UrlUsageResponse {
   used: number;
@@ -9,6 +10,14 @@ interface UrlUsageResponse {
 
 interface CreateShortUrlResponse {
   shortUrl: string;
+}
+
+interface UrlListResponse {
+  urls: UserUrl[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }
 
 export const getUrlUsageService = async (): Promise<UrlUsageResponse> => {
@@ -27,4 +36,19 @@ export const createShortUrlService = async (
   });
 
   return response.data;
+};
+
+
+export const getUserUrlsService = async (
+  page = 1,
+  limit = 10
+): Promise<UrlListResponse> => {
+  const res: AxiosResponse<UrlListResponse> = await https.get(
+    `/api/url?page=${page}&limit=${limit}`
+  );
+  return res.data;
+};
+
+export const deleteUserUrlService = async (urlId: number) => {
+  await https.delete(`/api/url/${urlId}`);
 };
