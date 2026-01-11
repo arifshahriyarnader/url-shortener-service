@@ -71,7 +71,7 @@ export const UrlTable = () => {
         <button
           disabled={page === 1}
           onClick={() => setPage((p) => p - 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
         >
           Prev
         </button>
@@ -83,7 +83,7 @@ export const UrlTable = () => {
         <button
           disabled={page === totalPages}
           onClick={() => setPage((p) => p + 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50"
+          className="px-3 py-1 border rounded disabled:opacity-50 cursor-pointer"
         >
           Next
         </button>
